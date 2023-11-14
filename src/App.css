@@ -44,8 +44,21 @@
   justify-content: center;
   align-items: center;
   width: 80%;
-  margin: 0 auto 50px auto;
+  margin: 20px auto 10px auto;
   background-color: black;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.dev-button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto 50px auto;
+  background-color: rgb(222, 222, 222);
   color: #fff;
   padding: 5px;
   border-radius: 5px;

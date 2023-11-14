@@ -2,8 +2,8 @@
 <h4 align="center">The LinkTree Alternative</h4>
 
 <b>Features:</b>
-- Discord Status 💬
 - Github Status 📝
+- Github Picture 👤
 - Local Time Zone ⏰
 - Clickable Links 🖱️
 - Animated backgrounds 🌈

@@ -1,8 +1,9 @@
-import logo from './logo.svg';
-import { Avatar, Card, CardContent, Typography, IconButton  } from '@mui/material';
+import axios from 'axios';
+import { Avatar, CardContent, Typography, IconButton  } from '@mui/material';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import { grey, red } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import LogoDev from '@mui/icons-material/LogoDev';
 import { useEffect, useState, useRef } from 'react';
 import './App.css';
 
@@ -13,6 +14,10 @@ function redirectToYoutube() {
 function redirectToGithub() {
   window.location.href = 'https://www.github.com/theofficialpeter';
 }
+
+const redirectToDevSite = () => {
+  window.location.href = 'https://dev.to/theofficialpeter';
+};
 
 // Component that shows my local time
 function Footer({ timezone }) {
@@ -35,7 +40,19 @@ function Footer({ timezone }) {
 
 function App() {
   const canvasRef = useRef(null);
+  const [bio, setBio] = useState('');
 
+  // fetch github description
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const response = await axios.get('https://api.github.com/users/theofficialpeter');
+      setBio(response.data.bio);
+    };
+
+    fetchProfile();
+  }, []);
+
+  // background space animation
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -121,24 +138,24 @@ function App() {
       <canvas ref={canvasRef} className="canvas"></canvas>
       <div className="card">
         <CardContent className="content">
-          <Avatar src="https://cdn.discordapp.com/avatars/368756571481702401/f67260055f771479803f7bead062c040.webp?size=96" alt="Profile Picture" className="avatar" style={{ height: '80px', width: '80px' }}  />
+          <Avatar src="https://github.com/TheOfficialPeter.png" alt="Profile Picture" className="avatar" style={{ height: '80px', width: '80px' }}  />
           <Typography variant="h5" component="div" className="username">
             TheOfficialPeter
           </Typography>
-          <Typography variant="subtitle2" className='description'>Web Developer</Typography>
-
-          <div onClick={redirectToYoutube} className="youtube-button">
-            <IconButton sx={{ color: grey[100] }} target="_blank" rel="noopener noreferrer">
-              <YouTubeIcon />
-            </IconButton>
-            <p style={{ fontWeight: "500" }}>Youtube</p>
-          </div>
+          <Typography variant="subtitle2" className='description'>{bio}</Typography>
 
           <div onClick={redirectToGithub} className="github-button">
             <IconButton sx={{ color: grey[100] }} target="_blank" rel="noopener noreferrer">
               <GitHubIcon />
             </IconButton>
             <p style={{ fontWeight: "500" }}>Github</p>
+          </div>
+
+          <div onClick={redirectToDevSite} className="dev-button">
+            <IconButton sx={{ color: grey[900] }} target="_blank" rel="noopener noreferrer">
+              <LogoDev />
+            </IconButton>
+            <p style={{ fontWeight: "500", color: "black" }}>Dev</p>
           </div>
         
         <Footer timezone="Africa/Johannesburg" />
